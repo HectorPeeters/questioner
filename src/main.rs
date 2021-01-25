@@ -117,8 +117,8 @@ fn main() -> io::Result<()> {
         clear();
 
         let percent: f32 = i as f32 / questions.len() as f32;
-        let width: u32 = (percent * 40.0) as u32;
-        let width_left: u32 = ((1.0 - percent) * 40.0) as u32;
+        let width: u32 = (percent * 80.0) as u32;
+        let width_left: u32 = 80 - width;
 
         addstr(&(0..width).map(|_| "#").collect::<String>());
         addstr(&(0..width_left).map(|_| "-").collect::<String>());
@@ -155,7 +155,7 @@ fn main() -> io::Result<()> {
     println!("Final score: {}/{}", correct, correct + incorrect);
     println!(
         "Thats a score of {}%!!!",
-        correct as f32 / (correct + incorrect) as f32
+        correct as f32 / (correct + incorrect) as f32 * 100.0
     );
 
     Ok(())
