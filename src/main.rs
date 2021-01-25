@@ -1,11 +1,11 @@
-use clap::{App, Arg, SubCommand};
+use clap::{App, Arg};
 use ncurses::*;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::io::Write;
-use std::io::{self, BufRead, Read};
+use std::io::{self};
 
 const QUESTION_PATH: &'static str = "questions.json";
 
@@ -27,7 +27,7 @@ fn load_questions(path: &str) -> io::Result<Vec<Question>> {
 }
 
 fn read_string(prompt: &str) -> io::Result<String> {
-    use std::io::{stdin, stdout, Write};
+    use std::io::{stdin, stdout};
 
     let mut s = String::new();
     print!("{}: ", prompt);
@@ -60,7 +60,7 @@ fn main() -> io::Result<()> {
 
     let mut questions: Vec<Question> = load_questions(QUESTION_PATH)?;
 
-    if (matches.is_present("input")) {
+    if matches.is_present("input") {
         loop {
             let text = read_string("Text")?;
 
