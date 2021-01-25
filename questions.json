@@ -1,22 +1,302 @@
 [
   {
-    "text": "test question",
-    "code": "test question code\nnewline!",
+    "text": "Embedded programming is more difficult than classical programming because of the event-based programming model.",
+    "code": null,
     "answer": true
   },
   {
-    "text": "test question 2",
-    "code": "test question code\nnewline!",
+    "text": "A defining characteristic of embedded systems is the lack of an interrupt controller.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "The embedded software crisis refers  to  the  lack  of  correct  code  for  the  increasingnumber of embedded systems.",
+    "code": null,
     "answer": true
   },
   {
-    "text": "test question 3",
-    "code": "test question code\nnewline!",
+    "text": "Despite advances in software engineering practices,  as  a  rule  of  thumb,  embeddedsoftware contains 1-10 bugs per million lines of code.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": " An embedded program can be coded as a finite state machine where interrupts triggerstate transitions.",
+    "code": null,
     "answer": true
   },
   {
-    "text": "test question 4",
-    "code": "test question code\nnewline!",
+    "text": "An interrupt is a synchronous signal form hardware to indicate the need for processorattention.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Besides  Finite  State  Machines  other  models  of  computation  suitable  for  embeddedsystems include Publish/Subscribe and Recursion.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Since  disabling  interrupts  increases  interrupt  latency,  several  alternative  methods  havebeen developed for dealing with shared data. The Alternating Buffers method is suited forhanding data from an ISR to a task. The code for toggling theuseBflag should be in the main task (not the ISR) as shown below.",
+    "code": "static int tempA[2], tempB[2];\nstatic bool useB = FALSE;\nvoid interrupt readTemp(){\nif (useB){\ntempA[0]= ...;\ntempA[1]= ...;\n}else{\ntempB[0]= ...;\ntempB[1]= ...;\n}\n}\nvoid main(void){\nwhile (TRUE){\nif (useB)\nif (tempB[0]!=tempB[1])\n ...  ;\nelseif (tempA[0]!=tempA[1]) ...  ;\nuseB = !useB;\n}\n}\n",
     "answer": true
+  },
+  {
+    "text": "Using interrupts improves context switch times.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An interrupt service routine should restore the context upon exit.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "To guarantee atomicity task switching must be disabled.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "A low-priority ISR can be interrupted by a high-priority ISR.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "The shared data problem can be solved through using semaphores.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "When a processor is powered up, interrupts are disabled until further notice.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Priority inversionrequires a minimum of 3 tasks of different priority and 1 semaphoreto occur.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "An interrupt vector points to a table with interrupt routines.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An interrupt cannotbe serviced faster than the time needed to save the context of coderunning on the processor.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Mutual exclusive access can also be accomplished by disabling interrupts, which has theadvantage of faster system response compared to using RTOS primitives like semaphoresand mutexes.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "The below pseudo code suffers from the shared data problem.",
+    "code": "int panic = 0;\nvoid isrbuttons(void) // arrive here if a button is pressed{\nint temp1 = X32PERIPHERALS[PERIPHERALTEMP1];\nint temp2 = X32PERIPHERALS[PERIPHERALTEMP2];\nif (temp1 != temp2){\npanic = 1;\n}\n...\n}\nmain(){\n...\nwhile (!programdone){\n// some lengthy calculations and control commands\nif (panic){\n// shutdown plant\n}\n}\n}\n",
+    "answer": false
+  },
+  {
+    "text": "The worst-case latency for servicing an interrupt is a combination of factors, includingthe longest period of time in which interrupts are disabled.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Adeadly embracerequires a minimum of 3 tasks and 2 semaphores to occur.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Reading the value of the global variablecountis atomic.",
+    "code": "static volatile int count;\nmain (){\n...\nint val = count;\n...\n}\n",
+    "answer": false
+  },
+  {
+    "text": "Given the following pseudo code, which reads the current values of 4 different buttonsand acts accordingly. The 4 buttons are all mapped to bits 0..3 of the button register. Thebuttons are already debounced. This code is an example of an RRI architecture.",
+    "code": "void f1(void){\ndelay(1000);\n}\nvoid f2(void){\ndelay(2000);\n}\nvoid f3(void){\ndelay(3000);\n}\nvoid f4(void){\ndelay(4000);\n}\nvoid main (void){\nwhile (1){\nif (buttons & 0x01)\n f1();\nif (buttons & 0x02 )\n f2();\nif (buttons & 0x04 )\n f3();\nif (buttons & 0x08 )\n f4();\ndelay(1000);\n}\n}\n",
+    "answer": false
+  },
+  {
+    "text": "When none of the buttons have been pressed,  the longest time that button #3 must bepressed to activate f3() once is 4 seconds.",
+    "code": "void f1(void){\ndelay(1000);\n}\nvoid f2(void){\ndelay(2000);\n}\nvoid f3(void){\ndelay(3000);\n}\nvoid f4(void){\ndelay(4000);\n}\nvoid main (void){\nwhile (1){\nif (buttons & 0x01)\n f1();\nif (buttons & 0x02 )\n f2();\nif (buttons & 0x04 )\n f3();\nif (buttons & 0x08 )\n f4();\ndelay(1000);\n}\n}\n",
+    "answer": false
+  },
+  {
+    "text": "When the system is in an arbitrary state, button #1 must be pressed at most 9 seconds toactivate f1().",
+    "code": "void f1(void){\ndelay(1000);\n}\nvoid f2(void){\ndelay(2000);\n}\nvoid f3(void){\ndelay(3000);\n}\nvoid f4(void){\ndelay(4000);\n}\nvoid main (void){\nwhile (1){\nif (buttons & 0x01)\n f1();\nif (buttons & 0x02 )\n f2();\nif (buttons & 0x04 )\n f3();\nif (buttons & 0x08 )\n f4();\ndelay(1000);\n}\n}\n",
+    "answer": false
+  },
+  {
+    "text": "Given is the following RTOS (pseudo) code with priority T1>T2. This code suffers from a data sharing problem.",
+    "code": "void T1(void){\nwhile (1){\nOSPend(sem1);\n // event #1 may unblock any time\nf(1);\nOSTimeDly(1);\n}\n}\nvoid T2(void){\nwhile (1){\nOSPend(sem2);\n // event #2 may unblock any time\nf(-1);\nOSTimeDly(3);\n}\n}\nvoid f(int i){\nOSPend(mutex);\ncounter = counter + i ;\n // modify some global counter\nOSPost(mutex);\n}\n",
+    "answer": false
+  },
+  {
+    "text": "If the order of events is #1, #2, #1, #2, #1 and they occur within 10  ms from each other,then the final value of the counter will be increased by 1.",
+    "code": "void T1(void){\nwhile (1){\nOSPend(sem1);\n // event #1 may unblock any time\nf(1);\nOSTimeDly(1);\n}\n}\nvoid T2(void){\nwhile (1){\nOSPend(sem2);\n // event #2 may unblock any time\nf(-1);\nOSTimeDly(3);\n}\n}\nvoid f(int i){\nOSPend(mutex);\ncounter = counter + i ;\n // modify some global counter\nOSPost(mutex);\n}\n",
+    "answer": true
+  },
+  {
+    "text": "The function f() is reentrant",
+    "code": "void T1(void){\nwhile (1){\nOSPend(sem1);\n // event #1 may unblock any time\nf(1);\nOSTimeDly(1);\n}\n}\nvoid T2(void){\nwhile (1){\nOSPend(sem2);\n // event #2 may unblock any time\nf(-1);\nOSTimeDly(3);\n}\n}\nvoid f(int i){\nOSPend(mutex);\ncounter = counter + i ;\n // modify some global counter\nOSPost(mutex);\n}\n",
+    "answer": true
+  },
+  {
+    "text": "Theprimaryshortcoming of an FQS architecture is that all tasks have the same priority.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An RR architecture doesnotsupport priorities.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "With an FQS architecture, a task signaled by an ISR is executed immediately after thatISR completes execution.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Consider an alarm system that constantly monitors the digital output of several motiondetector sensors in a house.  If a breach is detected then an intermittent alarm sound istriggered.- That alarm system can be implemented with an RR architecture.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "An RTOS architecture is most robust to code changes.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "In an RTOS, tasks can be in state BLOCKED, READY or RUNNING.- A task can transition directly from READY to RUNNING.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "An ISR may change a task’s status from RUNNING to BLOCKED.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An ISR can signal a task by operating a semaphore.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A reentrant function may use hardware only in an atomic way.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A reentrant function maynotreference variables labeledextern.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "A semaphore used for condition synchronization must be initialized to zero.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "An ISR mustnotinvoke an RTOS function that may block.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A  function  can  be  made  reentrant  by  temporarily  disabling  interrupts,  but  additionalbookkeeping is required as simply enabling interrupts on exit may cause errors.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "An ISR may call theOSpend()routine, but not theOSpost()routine .",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "When  using  an  RTOS  signaling  between  ISRs  and  tasks  must  be  done  by  callingappropriate RTOS primitives.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A program running on an RTOS may create tasks dynamically at runtime.- the program ends as soon as themain()function returns.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Theheartbeat timeris a single hardware timer an RTOS is using to verify that the systemis still progressing (i.e. not deadlocked).",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An RTOS usually provides two types of delay functions: polling-based and timer-based.- polling-based delays are the most accurate.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Assume that one system clock tick = 10 ms.- Calling the functionOSTimeDly(5)causes a delay between 40 and 50 ms.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Time-slicing should be avoided in an RTOS because it makes the response time of tasksless predictable.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A key principle of RTOS-based design is that the separation of concerns, by splitting codeamongst several tasks, improves the overall throughput.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Creating and destroying tasks dynamically is somewhat problematic because the RTOSmust disable interrupts for too long.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Tasks  in  an  RTOS  are  often  structured  as  state  machines  with  states  stored  in  privatevariables and ISRs advancing the state machine.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "It is recommended to use just the minimum necessary functionality from an RTOS.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Tasks can share the same stack as mutual exclusion allows only one task to execute acritical section.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "A logic analyzer is preferred to an in-circuit emulator because it can monitor the internalmemory bus of (most) modern micro controllers.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "When developing code for an embedded system, the software can de structured into HW-dependent and HW-independent code.- Doing so makes debugging HW-independent code feasible on the target platform",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Debugging through scripting test scenarios cannotbe used to test HW-dependent code.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A large study of outdoor sensor-network deployments [Beutel:2009] has shown that thetwo most underestimated problems have been the water-proof packaging of the sensornodes and the provision of a reliable base station.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "When debugging code for a distributed sensor network, collecting the (debug) output ofthe nodes can be arranged in different ways.-onlinesniffing requires logging facilities on the sensor nodes themselves.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Given is the following RTOS (pseudo) code.   T1 has the highest priority,  the time forputsand context switching is negligible. The display shows the sequence 1 2 1 2 1 2 1 2 1 2 ...",
+    "code": "void T1(void){\nwhile (1){\nputs(\"1 \");\nOSTimeDly(10);\n}\n}\nvoid T2(void){\nwhile (1){\nputs(\"2 \");\nOSTimeDly(10);\n}\n}\n",
+    "answer": true
+  },
+  {
+    "text": "When we replace theOSTimeDly(10)call with adelay(10)call, the ouput of theprint statements will be displayed in a random order.",
+    "code": "void T1(void){\nwhile (1){\nputs(\"1 \");\nOSTimeDly(10);\n}\n}\nvoid T2(void){\nwhile (1){\nputs(\"2 \");\nOSTimeDly(10);\n}\n}\n",
+    "answer": false
   }
 ]

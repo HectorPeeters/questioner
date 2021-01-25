@@ -97,12 +97,11 @@ fn main() -> io::Result<()> {
             };
 
             questions.push(question);
+
+            let question_text = serde_json::to_string(&questions).unwrap();
+
+            File::create(QUESTION_PATH)?.write_all(question_text.as_bytes())?;
         }
-
-        let question_text = serde_json::to_string(&questions).unwrap();
-
-        File::create(QUESTION_PATH)?.write_all(question_text.as_bytes())?;
-        println!("{:?}", questions);
 
         return Ok(());
     }
