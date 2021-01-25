@@ -4,11 +4,12 @@ use rand::seq::SliceRandom;
 use rand::thread_rng;
 use serde::{Deserialize, Serialize};
 use std::fs::File;
+use std::io::Write;
 use std::io::{self, BufRead, Read};
 
 const QUESTION_PATH: &'static str = "questions.json";
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 struct Question {
     pub text: String,
     pub code: Option<String>,
@@ -25,6 +26,27 @@ fn load_questions(path: &str) -> io::Result<Vec<Question>> {
     Ok(questions)
 }
 
+fn read_string(prompt: &str) -> io::Result<String> {
+    use std::io::{stdin, stdout, Write};
+
+    let mut s = String::new();
+    print!("{}: ", prompt);
+    let _ = stdout().flush();
+    stdin()
+        .read_line(&mut s)
+        .expect("Did not enter a correct string");
+    if let Some('\n') = s.chars().next_back() {
+        s.pop();
+    }
+    if let Some('\r') = s.chars().next_back() {
+        s.pop();
+    }
+
+    println!("{}", s);
+
+    Ok(s)
+}
+
 fn main() -> io::Result<()> {
     let matches = App::new("Question randomizer")
         .version("1.0")
@@ -36,7 +58,54 @@ fn main() -> io::Result<()> {
         )
         .get_matches();
 
-    let mut questions = load_questions(QUESTION_PATH)?;
+    let mut questions: Vec<Question> = load_questions(QUESTION_PATH)?;
+
+    if (matches.is_present("input")) {
+        loop {
+            let text = read_string("Text")?;
+
+            if text.trim().is_empty() {
+                break;
+            }
+
+            let mut code = String::new();
+
+            print!("Code : ");
+            let _ = std::io::stdout().flush();
+            while !code.contains("@") {
+                let mut buffer = String::new();
+
+                io::stdin().read_line(&mut buffer)?;
+
+                code.push_str(&buffer);
+            }
+
+            code = code.replace("@", "");
+
+            let answer = read_string("Answer")?;
+
+            let mut code_option = None;
+
+            if !code.trim().is_empty() {
+                code_option = Some(code.trim().to_string());
+            }
+
+            let question = Question {
+                text,
+                code: code_option,
+                answer: answer.to_lowercase().contains("true"),
+            };
+
+            questions.push(question);
+        }
+
+        let question_text = serde_json::to_string(&questions).unwrap();
+
+        File::create(QUESTION_PATH)?.write_all(question_text.as_bytes())?;
+        println!("{:?}", questions);
+
+        return Ok(());
+    }
 
     questions.shuffle(&mut thread_rng());
 
