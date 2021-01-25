@@ -598,6 +598,306 @@
     "text": "When we replace theOSTimeDly(10)call with adelay(10)call, the display willshow the sequence ”1 1 1 1 1 1 1 1 1 1 ...”",
     "code": "void T1(void){while (1){puts(\"1 \");OSTimeDly(10);}}void T2(void){while (1){puts(\"2 \");OSTimeDly(10);}}",
     "answer": true
+  },
+  {
+    "text": "Embedded programming is more difficult than “classical” programming because of thelack of support for recursion.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "A defining characteristic of embedded systems is the need for predictable timing behavior.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "TheEmbedded software crisisrefers to the “year 2000” bug.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Finite State Machines can be coded in VHDL.- An advantage of doing so is that it results in a fast and predictable process executing ondedicated hardware.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Despite  advances  in  software  engineering  practices,  as  a  rule  of  thumb,  embeddedsoftware contains 1-10 bugs per thousand lines of code.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "The Underground Tank Monitoring System is a classic example of an embedded system inthat it involves input (sensors/buttons), output (display/printer) and real-time constraints.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Because embedded software engages the physical world, it has to embrace time and othernon-functional properties, which requires a view that is significantly different from theprevailing abstractions in computation.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "An interrupt is a synchronous signal from hardware to indicate the need for processorattention.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "The  C  language  is  centered  around  theintdata  type  that  represents  the  canonicalmachine word.- As such the size of anintis architecture dependent.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "The  definition  above  declaresresolveas  a  pointer  to  a  function  that  takes  twoarguments of typevoid*and returns a void pointer as result.",
+    "code": "typedef void*(*resolve)(void*old, void*new);",
+    "answer": true
+  },
+  {
+    "text": "GDB is programming tool that aids memory debugging by executing a program in a safeenvironment.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Finite State Machines can be coded in a number of ways in C.- In the table-based solution, every state is encoded as a separate function.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "The below loop drives the FSM until all characters from the standard input have been processed.",
+    "code": "int main(void){int c;statefp state = start;while((c = getchar()) != EOF){state = (statefp) (*state)(c);}return 0;}",
+    "answer": true
+  },
+  {
+    "text": "Specifying the type ofstatefpis difficult in C because it is recursive and types cannotbe referenced before being fully defined.",
+    "code": "int main(void){int c;statefp state = start;while((c = getchar()) != EOF){state = (statefp) (*state)(c);}return 0;}",
+    "answer": true
+  },
+  {
+    "text": "Using interrupts improves task response time.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An interrupt service routine should save the context upon entrance.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A low-priority ISR can be interrupted by a high-priority task.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Since  disabling  interrupts  increases  interrupt  latency,  several  alternative  methods  havebeen developed for dealing with shared data. The Alternating Buffers method is suited forhanding data from an ISR to a task. The above code with toggling theuseAflag in the ISR is correct.",
+    "code": "static int tempA[2], tempB[2];static bool useA = TRUE;void interrupt readTemp(){if (useA){tempA[0]= ...;tempA[1]= ...;}else{tempB[0]= ...;tempB[1]= ...;}useA = !useA;}void main(void){while (TRUE){if (useA)if (tempB[0]!=tempB[1]) ...  ;elseif (tempA[0]!=tempA[1]) ...  ;}}",
+    "answer": false
+  },
+  {
+    "text": "An interrupt vector contains the address of an ISR.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Disabling  interrupts  guarantees  atomicity  of  the  code  until  the  interrupts  are  enabledagain.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Priority inversionoccurs when thevolatileandstatickeywords are wrongly usedinside a task or interrupt.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "The worst-case latency for servicing an interrupt is a combination of factors, includingthe time taken for higher priority tasks.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "The number of interrupts is limited by the number of GPIO pins on the processor.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Mutual exclusive access can also be accomplished by disabling interrupts, which has theadvantage of faster context switching compared to using RTOS primitives like semaphoresand mutexes.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "The shared-data problem can be solved through using thevolatilekeyword.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Given the following pseudo code, which reads the current values of 4 different buttonsand acts accordingly. The 4 buttons are all mapped to bits 0..3 of the button register. Thebuttons are already debounced. This code is an example of an RRI architecture.",
+    "code": "void f1(void){delay(1000);}void f2(void){delay(2000);}void f3(void){delay(3000);}void f4(void){delay(4000);}void main (void){while (1){if (buttons & 0x01) f1();if (buttons & 0x02 ) f2();if (buttons & 0x04 ) f3();if (buttons & 0x08 ) f4();delay(1000);}}",
+    "answer": false
+  },
+  {
+    "text": "When the system is in an arbitrary state, button #1 must be pressed at most 10 seconds toactivate f1().",
+    "code": "void f1(void){delay(1000);}void f2(void){delay(2000);}void f3(void){delay(3000);}void f4(void){delay(4000);}void main (void){while (1){if (buttons & 0x01) f1();if (buttons & 0x02 ) f2();if (buttons & 0x04 ) f3();if (buttons & 0x08 ) f4();delay(1000);}}",
+    "answer": true
+  },
+  {
+    "text": "Theprimaryshortcoming of an RRI architecture is that all tasks have the same priority.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "An RTOS architecture supports priority-based task scheduling.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "An RR architecture is robust to code changes.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "The response time to an external event in an FQS architecture is deterministic and dependssolely on the length of the ISR.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Consider an alarm system that constantly monitors the digital output of several motiondetector sensors in a house.  If a breach is detected then an intermittent alarm sound istriggered.- That alarm system can be implemented with an RR architecture.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A FQS architecture reduces to an RRI architecture when tasks are serviced in LIFO order.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "In an RTOS, tasks can be in state BLOCKED, READY or RUNNING.- a task starts in the state READY.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A function can be made reentrant by temporarily disabling interrupts, but then it may nolonger be called by an ISR.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A task can signal an ISR by operating a semaphore.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "A reentrant function may use variables only in an atomic way.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An ISR may call neither theOSpost()routine, nor theOSpend()routine.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "A semaphore used for guaranteeing mutual exclusive access to shared resources must beinitialized to the number of tasks involved.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Even a local variable can introduce a shared data problem when its address escapes thedefining function, for example, by storing the address in a global datastructure.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A program running on an RTOS may create tasks dynamically at runtime.- the program ends as soon as the last task terminates.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Given is the following RTOS (pseudo) code with priority T1>T2. This code suffers from a data sharing problem.",
+    "code": "void T1(void){while (1){OSPend(sem1); // event #1 may unblock any timef(1);}}void T2(void){while (1){OSPend(sem2); // event #2 may unblock any timef(-1);}}void f(int i){delay(10); // do some computationcounter = counter + i ; // modify some global counterprintf(\"%d\\n\", counter) ; // print result}",
+    "answer": true
+  },
+  {
+    "text": "Ifcountis set to 15 when event 2 occurs, and event 1 follows 3 ms later, then the firstvalue printed is 14.",
+    "code": "void T1(void){while (1){OSPend(sem1); // event #1 may unblock any timef(1);}}void T2(void){while (1){OSPend(sem2); // event #2 may unblock any timef(-1);}}void f(int i){delay(10); // do some computationcounter = counter + i ; // modify some global counterprintf(\"%d\\n\", counter) ; // print result}",
+    "answer": false
+  },
+  {
+    "text": "If the call todelayis replaced withOSTimeDlythe output will be different.",
+    "code": "void T1(void){while (1){OSPend(sem1); // event #1 may unblock any timef(1);}}void T2(void){while (1){OSPend(sem2); // event #2 may unblock any timef(-1);}}void f(int i){delay(10); // do some computationcounter = counter + i ; // modify some global counterprintf(\"%d\\n\", counter) ; // print result}",
+    "answer": true
+  },
+  {
+    "text": "An RTOS usually provides two types of delay functions: polling-based and timer-based.- polling-based delays are more efficient as other tasks can run while the caller is waitingfor the specified time to pass.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Theheartbeat timeris a single hardware timer an RTOS is using as base for all timings.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Assume that one system clock tick = 10 ms.- Calling the functionOSTimeDly(6)causes a delay between 60 and 70 ms.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "To address the shared-data problem, many RTOSs provide communication primitives likequeues, mailboxes, and pipes.- the basic read/write operations on these primitives are atomic.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "As  the  RTOSs  is  aware  of  which  task  is  using  which  semaphore,  deadlock  can  beprevented by delaying theOSPendoperation of the last runnable task.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Tasks  in  an  RTOS  are  often  structured  as  state  machines  with  states  stored  in  privatevariables and messages in their queues acting as events.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "The memory footprint of a program grows linearly with the number of tasks.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Printing  from  an  ISR  is  to  be  avoided  when  the  RTOS  does  not  provide  a  reentrantprimitive to do so.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A key principle of RTOS-based design is that the separation of concerns, by splitting codeamongst several tasks, improves the overall throughput.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Time  slicing  between  tasks  of  equal  priority  is  to  be  avoided  as  the  response  time  ofindividual tasks is comprised.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "It is recommended to use just the minimum necessary functionality from an RTOS.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A logic analyzer is preferred to an in-circuit emulator because it is easier to use.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "When developing code for an embedded system, the software can de structured into HW-dependent and HW-independent code.- Doing so makes debugging HW-independent code feasible on the target platform",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Debugging  through  scripting  test  scenarios  is  difficult  when  the  target  platform  isunavailable.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "When debugging code for a distributed sensor network, collecting the (debug) output ofthe nodes can be arranged in different ways [Beutel:2009].- Awirelesstestbed requires physical instrumentation (i.e. wiring) of the sensor node.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A large study of outdoor sensor-network deployments has shown that the most underesti-mated problem has been the water-proof packaging of the base station.",
+    "code": null,
+    "answer": false
   }
 ]
 
