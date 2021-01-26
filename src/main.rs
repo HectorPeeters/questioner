@@ -42,8 +42,6 @@ fn read_string(prompt: &str) -> io::Result<String> {
         s.pop();
     }
 
-    println!("{}", s);
-
     Ok(s)
 }
 
@@ -101,6 +99,8 @@ fn main() -> io::Result<()> {
             let question_text = serde_json::to_string(&questions).unwrap();
 
             File::create(QUESTION_PATH)?.write_all(question_text.as_bytes())?;
+
+            println!("\n\n");
         }
 
         return Ok(());
@@ -123,6 +123,12 @@ fn main() -> io::Result<()> {
         addstr(&(0..width).map(|_| "#").collect::<String>());
         addstr(&(0..width_left).map(|_| "-").collect::<String>());
         addstr("\n");
+        addstr(&format!(
+            "{}:{}\t{}\n\n",
+            correct,
+            incorrect,
+            correct + incorrect
+        ));
 
         addstr(&format!("{}\n", question.text));
 
