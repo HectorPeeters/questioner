@@ -1798,6 +1798,306 @@
     "text": "When debugging code for a distributed sensor network, collecting the (debug) output ofthe nodes can be arranged in different ways.- Awirelesstestbed requires physical instrumentation (i.e. wiring) of the sensor node.",
     "code": null,
     "answer": true
+  },
+  {
+    "text": "Embedded programming is more difficult than “classical” programming because of thelack of support for recursion.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "A defining characteristic of embedded systems is the restricted, or complete lack, of a userinterface.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Several models of computation for embedded systems are described in [Lee:2002].-  The  ROS  software  (used  in  the  practicals)  is  a  prime  example  of  the  publish-and-subscribe model.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "The  Underground  Tank  Monitoring  System  is  a  somewhat  contrived  example  of  anembedded system as it involves input (sensors/buttons) and output (display/printer), butlacks real-time constraints and resource limitations.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Despite  advances  in  software  engineering  practices,  as  a  rule  of  thumb,  embeddedsoftware contains 1-10 bugs per thousand lines of code.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Hardware interrupts can be disabled; software interrupts cannot.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An embedded program can be coded as a finite state machine; the number of incomingtransitions (arcs) into a state S must equal the number of outgoing transitions (arcs).",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Finite State Machines can be coded in a number of ways in C.- In the table-based solution, every transition (arc) is encoded as a separate function.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "The above loop drives the FSM until the end state is reached.",
+    "code": "int main(void){int c;statefp state = start;while((c = getchar()) != EOF){state = (statefp) (*state)(c);}return 0;}",
+    "answer": false
+  },
+  {
+    "text": "Unlike recursive data structures, recursive function types cannot be properly defined in Cand require kludges likevoidpointers and type casts.",
+    "code": "int main(void){int c;statefp state = start;while((c = getchar()) != EOF){state = (statefp) (*state)(c);}return 0;}",
+    "answer": true
+  },
+  {
+    "text": "The C language does not contain a built-in type to represent booleans.- in control flow statements, expressions evaluating to 0 are regarded as logically False.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "The  first  pair  of  parenthesis  in  the  definition  above  is  for  clarity  (stressing  a  functionpointer is involved) and can be left out without changing the meaning.",
+    "code": "typedef void (*resolve)(void*old, void*new);",
+    "answer": false
+  },
+  {
+    "text": "Valgrind is programming tool that provides controlled execution, as well as post morteminspection of an executable.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "The worst-case latency for servicing an interrupt is a combination of factors, includingthe time taken for higher priority interrupts.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Despite disabling interrupts the above pseudo code fails to solve the shared-data problem.",
+    "code": "static int iSeconds, iMinutes;void interrupt vUpdateTime(void){++iSeconds;if (iSeconds>=60){iSeconds=0;++iMinutes;}}long lSeconds(void){disable();return (iMinutes*60+iSeconds);enable();}",
+    "answer": true
+  },
+  {
+    "text": "An interrupt vector table contains the addresses of the interrupt service routines.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "An interrupt cannotbe serviced faster than the time needed to save the context of coderunning on the processor.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Critical sections can be guarded by disabling and enabling interrupts.- interrupts arriving during such a critical section are buffered and handled upon exit.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Given is the following RTOS (pseudo) code with priority T1>T2. This code suffers from a data sharing problem.",
+    "code": "void T1(void){while (1){OSPend(sem1); // event #1 may unblock any timef(1);OSTimeDly(1);}}void T2(void){while (1){OSPend(sem2); // event #2 may unblock any timef(-1);OSTimeDly(3);}}void f(int i){OSPend(mutex);counter = counter + i ; // modify some global counterOSPost(mutex);}",
+    "answer": false
+  },
+  {
+    "text": "If the order of events is  1,  2,  1,  2,  1 and they occur within 10  ms from each other, thenthe final value of the counter will be increased by 1.",
+    "code": "void T1(void){while (1){OSPend(sem1); // event #1 may unblock any timef(1);OSTimeDly(1);}}void T2(void){while (1){OSPend(sem2); // event #2 may unblock any timef(-1);OSTimeDly(3);}}void f(int i){OSPend(mutex);counter = counter + i ; // modify some global counterOSPost(mutex);}",
+    "answer": true
+  },
+  {
+    "text": "The functionf()is reentrant",
+    "code": "void T1(void){while (1){OSPend(sem1); // event #1 may unblock any timef(1);OSTimeDly(1);}}void T2(void){while (1){OSPend(sem2); // event #2 may unblock any timef(-1);OSTimeDly(3);}}void f(int i){OSPend(mutex);counter = counter + i ; // modify some global counterOSPost(mutex);}",
+    "answer": true
+  },
+  {
+    "text": "The shared-data problem can be solved through enabling interrupts.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Adeadly embracerequires a minimum of 3 tasks of different priority and 1 semaphoreto occur.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "When a processor is powered up, interrupts are disabled until further notice.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "While interrupts are disabled atomicity is guaranteed even when calling a non-reentrantfuncion.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Shared variables markedvolatileguarantee atomic access.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Using interrupts improves system response time.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Theprimaryshortcoming of an RRI architecture is that it is more complex than RR.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An RTOS architecture supports priority-based ISRs.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "With an FQS architecture, the worst response time of a task includes the time taken by thelongest task in the system.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "With an RTOS every task needs its own stack.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "An RR architecture is most robust to code changes.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "With an RTOS it is impossible to make direct use of harware timers.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "In an RTOS, tasks can be in state BLOCKED, READY or RUNNING.- a task starts in the state RUNNING.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An ISR may change a task’s status from BLOCKED to READY.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A high-priority task mustnotinvoke an RTOS function that may block.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "When  using  an  RTOS  signaling  between  ISRs  and  tasks  must  be  done  by  callingappropriate RTOS primitives.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A program running on an RTOS may create tasks dynamically at runtime.- the number of tasks is limited by the number of priority levels supported.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An RTOS usually provides two types of delay functions: polling-based and timer-based.- timer-based delays are more efficient as other tasks can run while the caller is waitingfor the specified time to pass.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Assume that one system clock tick = 10 ms.- Calling the functionOSTimeDly(6)causes a delay between 50 and 70 ms.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "To address the shared-data problem, many RTOSs provide communication primitives likequeues, mailboxes, and pipes.- a common advantage is that they allow pointers to be passed from one task to another.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "A disadvantage of queues over pipes is that messages/items are handled strictly in FIFOorder.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "With the X32 RTOS creating a task amounts to initializing a stack and invoking a contextswitch to the task’s main function.- This approach provides the possibility to use one stack for multiple (concurrent) tasksand reduce the memory footprint.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "Theheartbeat timeris a single hardware timer an RTOS is using to monitor the livenessof the task set involved.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "This code is an example of an RRI architecture.",
+    "code": "1#include<stdio.h>2#include<string.h>3#include<stdlib.h>45extern char*UART_rx_buf;// copied from <uart.h> for reference6extern char*UART_tx_buf;7extern char*UART_ier;89#defineLEN 8010static char*next_command = NULL;1112voidrx_ready() {13static charbuffer[2][LEN];14static inttoggle = 0;15static char*command = buffer[0];16static intcnt = 0;1718charc =*UART_rx_buf;19if(c == ’\\n’) {20command[cnt] = ’\\0’;21next_command = command;22toggle = 1 - toggle;23command = buffer[toggle];24cnt = 0;25}else{26command[cnt++] = c;27}28}2930intmain() {31*UART_ier |= 0x3;// start RX and TX please32while(1) {33if(next_command != NULL) {34if(strcmp(next_command, \"exit\") == 0) {35exit(0);36}else if(strcmp(next_command, \"hello\") == 0) {37printf(\"world\\n\");38}39next_command = NULL;40}41...42}43}",
+    "answer": true
+  },
+  {
+    "text": "Consider  lines  5-7  in  which  some  of  a  UART’s  registers  are  declared.    This  way  aUART, or any other peripheral for that matter, can be accessed with normal read/writeinstructions.- this mode of operation is called ’memory-mapped I/O’.",
+    "code": "1#include<stdio.h>2#include<string.h>3#include<stdlib.h>45extern char*UART_rx_buf;// copied from <uart.h> for reference6extern char*UART_tx_buf;7extern char*UART_ier;89#defineLEN 8010static char*next_command = NULL;1112voidrx_ready() {13static charbuffer[2][LEN];14static inttoggle = 0;15static char*command = buffer[0];16static intcnt = 0;1718charc =*UART_rx_buf;19if(c == ’\\n’) {20command[cnt] = ’\\0’;21next_command = command;22toggle = 1 - toggle;23command = buffer[toggle];24cnt = 0;25}else{26command[cnt++] = c;27}28}2930intmain() {31*UART_ier |= 0x3;// start RX and TX please32while(1) {33if(next_command != NULL) {34if(strcmp(next_command, \"exit\") == 0) {35exit(0);36}else if(strcmp(next_command, \"hello\") == 0) {37printf(\"world\\n\");38}39next_command = NULL;40}41...42}43}",
+    "answer": true
+  },
+  {
+    "text": "The functionrxready()uses a technique called ’alternating buffers’.- From line 13 we can infer that the buffers are allocated on the call stack.",
+    "code": "1#include<stdio.h>2#include<string.h>3#include<stdlib.h>45extern char*UART_rx_buf;// copied from <uart.h> for reference6extern char*UART_tx_buf;7extern char*UART_ier;89#defineLEN 8010static char*next_command = NULL;1112voidrx_ready() {13static charbuffer[2][LEN];14static inttoggle = 0;15static char*command = buffer[0];16static intcnt = 0;1718charc =*UART_rx_buf;19if(c == ’\\n’) {20command[cnt] = ’\\0’;21next_command = command;22toggle = 1 - toggle;23command = buffer[toggle];24cnt = 0;25}else{26command[cnt++] = c;27}28}2930intmain() {31*UART_ier |= 0x3;// start RX and TX please32while(1) {33if(next_command != NULL) {34if(strcmp(next_command, \"exit\") == 0) {35exit(0);36}else if(strcmp(next_command, \"hello\") == 0) {37printf(\"world\\n\");38}39next_command = NULL;40}41...42}43}",
+    "answer": false
+  },
+  {
+    "text": "The code suffers from a (subtle) data sharing bug as bothrxready()andmain()write to the same global variablenextcommand.- in certain casesrxready()will overwrite buffered data still to be read bymain().",
+    "code": "1#include<stdio.h>2#include<string.h>3#include<stdlib.h>45extern char*UART_rx_buf;// copied from <uart.h> for reference6extern char*UART_tx_buf;7extern char*UART_ier;89#defineLEN 8010static char*next_command = NULL;1112voidrx_ready() {13static charbuffer[2][LEN];14static inttoggle = 0;15static char*command = buffer[0];16static intcnt = 0;1718charc =*UART_rx_buf;19if(c == ’\\n’) {20command[cnt] = ’\\0’;21next_command = command;22toggle = 1 - toggle;23command = buffer[toggle];24cnt = 0;25}else{26command[cnt++] = c;27}28}2930intmain() {31*UART_ier |= 0x3;// start RX and TX please32while(1) {33if(next_command != NULL) {34if(strcmp(next_command, \"exit\") == 0) {35exit(0);36}else if(strcmp(next_command, \"hello\") == 0) {37printf(\"world\\n\");38}39next_command = NULL;40}41...42}43}",
+    "answer": true
+  },
+  {
+    "text": "Removing the write statement on line 39 will not resolve the shared data bug.- it will causemain()to repeat the same command untilrxready()is invoked again.",
+    "code": "1#include<stdio.h>2#include<string.h>3#include<stdlib.h>45extern char*UART_rx_buf;// copied from <uart.h> for reference6extern char*UART_tx_buf;7extern char*UART_ier;89#defineLEN 8010static char*next_command = NULL;1112voidrx_ready() {13static charbuffer[2][LEN];14static inttoggle = 0;15static char*command = buffer[0];16static intcnt = 0;1718charc =*UART_rx_buf;19if(c == ’\\n’) {20command[cnt] = ’\\0’;21next_command = command;22toggle = 1 - toggle;23command = buffer[toggle];24cnt = 0;25}else{26command[cnt++] = c;27}28}2930intmain() {31*UART_ier |= 0x3;// start RX and TX please32while(1) {33if(next_command != NULL) {34if(strcmp(next_command, \"exit\") == 0) {35exit(0);36}else if(strcmp(next_command, \"hello\") == 0) {37printf(\"world\\n\");38}39next_command = NULL;40}41...42}43}",
+    "answer": true
+  },
+  {
+    "text": "An alternative approach would be to make use of semaphores to supportrxready()passing the next command tomain().- only a single semaphore initialized to 0 is needed.",
+    "code": "1#include<stdio.h>2#include<string.h>3#include<stdlib.h>45extern char*UART_rx_buf;// copied from <uart.h> for reference6extern char*UART_tx_buf;7extern char*UART_ier;89#defineLEN 8010static char*next_command = NULL;1112voidrx_ready() {13static charbuffer[2][LEN];14static inttoggle = 0;15static char*command = buffer[0];16static intcnt = 0;1718charc =*UART_rx_buf;19if(c == ’\\n’) {20command[cnt] = ’\\0’;21next_command = command;22toggle = 1 - toggle;23command = buffer[toggle];24cnt = 0;25}else{26command[cnt++] = c;27}28}2930intmain() {31*UART_ier |= 0x3;// start RX and TX please32while(1) {33if(next_command != NULL) {34if(strcmp(next_command, \"exit\") == 0) {35exit(0);36}else if(strcmp(next_command, \"hello\") == 0) {37printf(\"world\\n\");38}39next_command = NULL;40}41...42}43}",
+    "answer": true
+  },
+  {
+    "text": "Time  slicing  between  tasks  of  equal  priority  is  to  be  avoided  as  it  compromises  thepredictability of their response times.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "The minimal memory footprint of a program grows linearly with the number of tasks.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "A semaphore S used by tasks A and B must be initialized by either A or B.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "An advantage of using tasks is that it allows for better data encapsulation.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Tasks should have different priorities to avoid fairness issues imposed by the RTOS.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "When developing code for an embedded system, the software can de structured into HW-dependent and HW-independent code.- Doing so makes debugging HW-independent code feasible on the target platform",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "A logic analyzer is preferred to an in-circuit emulator because it can be used with any typeof processor.",
+    "code": null,
+    "answer": true
+  },
+  {
+    "text": "Although the assert macro is a useful debugging aid during program development, it canonly be used on the host.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "A large study of outdoor sensor-network deployments [Beutel:2009] has shown that thewater-proof packaging of the base station is key to establishing a reliable connection tothe back bone.",
+    "code": null,
+    "answer": false
+  },
+  {
+    "text": "When debugging code for a distributed sensor network, collecting the (debug) output ofthe nodes can be arranged in different ways.- Awirelesstestbed requiresnophysical instrumentation (i.e. wiring) of the sensor nodes.",
+    "code": null,
+    "answer": false
   }
 ]
 
