@@ -132,7 +132,7 @@ fn main() -> io::Result<()> {
 
         refresh();
 
-        let answer = getch() == 'f' as i32;
+        let answer = getch() == 't' as i32;
 
         if answer == question.answer {
             correct += 1;
